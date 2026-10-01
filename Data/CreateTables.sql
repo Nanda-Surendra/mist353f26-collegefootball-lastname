@@ -7,13 +7,14 @@ FOR LOGIN NandaSurendra;
 
 ALTER ROLE db_owner ADD MEMBER NandaSurendra;
 */
+if object_id('Game') is not null
+    drop table Game;
+
+if object_id('Team') is not null
+    drop table Team;
 
 if object_id('Stadium') is not null
     drop table Stadium;
-if object_id('Team') is not null
-    drop table Team;
-if object_id('Game') is not null
-    drop table Game;
 
 go
 
