@@ -10,6 +10,9 @@ ALTER ROLE db_owner ADD MEMBER NandaSurendra;
 if object_id('Game') is not null
     drop table Game;
 
+if object_id('AppUserTeam') is not null
+    drop table AppUserTeam;
+
 if object_id('Team') is not null
     drop table Team;
 
@@ -18,6 +21,7 @@ if object_id('Stadium') is not null
 
 if object_id('AppUser') is not null
     drop table AppUser;
+
 
 go
 
@@ -78,4 +82,20 @@ CREATE TABLE AppUser (
     CONSTRAINT PK_AppUser PRIMARY KEY (AppUserID),
     CONSTRAINT UQ_AppUser UNIQUE (AppUserEmail)
 );
+
+go
+
+create table AppUserTeam (
+    AppUserTeamID INT NOT NULL IDENTITY(1,1),
+    TeamID INT NOT NULL,
+    AppUserID INT NOT NULL,
+    constraint PK_AppUserTeam Primary Key (AppUserTeamID),
+    constraint UQ_AppUserTeam UNIQUE (TeamID, AppUserID),
+    constraint FK_AppUserTeam_Team FOREIGN KEY (TeamID) REFERENCES Team(TeamID),
+    constraint FK_AppUserTeam_AppUser FOREIGN KEY (AppUserID) REFERENCES AppUser(AppUserID)
+);
+
+go
+
+go
 
