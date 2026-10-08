@@ -7,6 +7,9 @@ FOR LOGIN NandaSurendra;
 
 ALTER ROLE db_owner ADD MEMBER NandaSurendra;
 */
+if object_id('WeeklyPredictionResults') is not null
+    drop table WeeklyPredictionResults;
+
 if object_id('Game') is not null
     drop table Game;
 
@@ -21,7 +24,6 @@ if object_id('Stadium') is not null
 
 if object_id('AppUser') is not null
     drop table AppUser;
-
 
 go
 
@@ -97,5 +99,11 @@ create table AppUserTeam (
 
 go
 
-go
-
+CREATE table WeeklyPredictionResults (
+    WeeklyPredictionResultsID INT NOT NULL IDENTITY(1,1),
+    StartDate DATE NOT NULL default GETDATE(),
+    NumberOfCorrectPredictions INT NOT NULL default 0,
+    AppUserID INT NOT NULL,
+    constraint PK_WeeklyPredictionResults PRIMARY KEY (WeeklyPredictionResultsID), 
+    constraint FK_WeeklyPredictionResults_AppUser FOREIGN KEY (AppUserID) REFERENCES AppUser(AppUserID),
+);
